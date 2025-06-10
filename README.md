@@ -71,3 +71,14 @@ Para rodar o site no terminal digite o seguinte código:
 ```powershell
 python manage.py runserver
 ```
+
+Você precisa acessar o site com algum destes usuários, o gerente possui todas as funcionalidades sendo o mais recomendado para analisar o projeto:
+## 👥 Usuários do Sistema
+
+| Cargo       | Usuário   | Senha       |
+|-------------|-----------|-------------|
+| Gerente     | Heloisa   | helo1604    |
+| Funcionário | Daniel    | martinsdan  |
+| Funcionário | Ana       | anal2606    |
+| Funcionário | Marcos    | marcos123   |
+
