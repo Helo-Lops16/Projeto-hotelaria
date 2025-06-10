@@ -1,0 +1,85 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}Quartos{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/quartos.css'%}">
+    <script src="{% static 'js/quartos.js'%}" defer></script>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+
+    <div class="top-bar">
+        <h1>Quartos Disponíveis</h1>
+        <div class="botoes">
+            {% if user.is_authenticated %}
+                {% if user.groups.all.0.name == "Gerente" %}
+                    <a href="{% url 'addQuarto' %}" class="btn-add">Adicionar Quarto</a>
+                    <a href="{% url 'removerQuarto' %}" class="btn-remove">Remover Quartos</a>
+                    <a href="{% url 'reservas' %}" class="btn-reservados">Reservas</a>
+                {% else %}
+                    <a href="{% url 'reservas' %}" class="btn-reservados">Reservas</a>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="cards-container">
+        {% for quarto in quartos %}
+            <div class="card" onclick="toggleExpand(this)">
+                <img src="{{ quarto.img.url }}" alt="Imagem do Quarto">
+                <div class="card-info">
+                    <h2>Quarto {{ quarto.num_Quarto }} - {{ quarto.get_tipo_display }}</h2>
+                    <p><strong>Estilo:</strong> {{ quarto.get_estilo_display }}</p>
+                    <p><strong>Hóspedes:</strong> {{ quarto.qtd_Hospedes }}</p>
+                    <p><strong>Valor:</strong> R$ {{ quarto.valor }}</p>
+
+                    {% if quarto.reservas_ativas %}
+                        <p><strong>Próximas reservas:</strong></p>
+                        <ul>
+                            {% for reserva in quarto.reservas_ativas %}
+                                <li>{{ reserva.data }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p><em>Sem reservas futuras</em></p>
+                    {% endif %}
+
+                    {% if user.is_authenticated %}
+                        <div class="reservar-container">
+                            <label for="dataReserva-{{ quarto.id }}">Reservar em:</label>
+                            <input type="date" id="dataReserva-{{ quarto.id }}" min="{{ today }}">
+                            <button onclick="reservarQuarto('{{ quarto.id }}')" class="btn-reservar" type="button">Reservar</button>
+                        </div>
+                    {% endif %}
+
+                    <div class="descricao">
+                        <p><strong>Descrição:</strong> {{ quarto.descricao }}</p>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p>Não há quartos cadastrados.</p>
+        {% endfor %}
+    </div>
+</div>
+
+<div id="messageModal" class="modal">
+    <div class="modal-content">
+        <p id="messageText"></p>
+        <div class="modal-buttons">
+            <button onclick="fecharMensagem()">Fechar</button>
+        </div>
+    </div>
+</div>
+
+<div id="errorModal" class="modal">
+    <div class="modal-content">
+        <p id="errorText"></p>
+        <div class="modal-buttons">
+            <button onclick="fecharErro()">Fechar</button>
+        </div>
+    </div>
+</div>
+{% endblock %}

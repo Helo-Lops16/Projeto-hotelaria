@@ -1,0 +1,32 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}
+    HOMEPAGE
+{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/homepage.css' %}">
+{% endblock %}
+
+{% block body %}
+    <div class="homepage-container">
+        {% for dados in dados_home %}
+            <div class="homepage-card">
+                <h1 class="homepage-title">{{dados.titulo}}</h1>
+                <div class="homepage-content">
+                    <div class="homepage-text">
+                        <p class="homepage-description">Bem-vindo ao Hotel Aria, o hotel fazenda mais requisitado da região. Reconhecido por sua hospitalidade incomparável e estrutura de alto padrão, o Hotel Aria é o destino ideal para quem busca conforto, luxo e uma experiência inesquecível em meio à natureza.</p>
+                        <p class="margem"></p>
+                        <p class="homepage-description"> Aqui, você encontra acomodações elegantes, gastronomia refinada, lazer para todas as idades e paisagens de tirar o fôlego. Seja para relaxar, celebrar ou viver momentos especiais, o Hotel Aria oferece tudo o que você precisa – e mais.</p>
+                    </div>
+                    <div class="homepage-image">
+                        {% if dados.logo %}
+                            <img src="{{ dados.logo.url }}" alt="{{ dados.titulo }}" class="homepage-logo">
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

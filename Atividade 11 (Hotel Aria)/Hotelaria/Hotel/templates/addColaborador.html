@@ -1,0 +1,50 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}Adicionar Colaborador{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/addColaborador.css' %}">
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="top-bar">
+        <h1>Adicionar Colaborador</h1>
+        <div class="botoes">
+            <a href="{% url 'homepage' %}" class="btn-voltar">Voltar</a>
+        </div>
+    </div>
+
+    {% if messages %}
+        <div class="mensagens">
+            {% for message in messages %}
+                <div class="message {{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <div class="form-card">
+        <form method="post">
+            {% csrf_token %}
+
+            <label for="first_name">Primeiro Nome:</label>
+            <input type="text" name="first_name" required placeholder="Digite o primeiro nome">
+
+            <label for="last_name">Sobrenome:</label>
+            <input type="text" name="last_name" required placeholder="Digite o sobrenome">
+
+            <label for="username">Usuário:</label>
+            <input type="text" name="username" required placeholder="Digite o nome de usuário">
+
+            <label for="email">Email:</label>
+            <input type="email" name="email" required placeholder="Digite o email">
+
+            <label for="password">Senha:</label>
+            <input type="password" name="password" required placeholder="Digite a senha">
+
+            <button type="submit" class="btn-salvar">Adicionar Colaborador</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,99 @@
+/* Container principal */
+.homepage-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  /* Cartão com título e conteúdo */
+  .homepage-card {
+    width: 100%;
+    background-color: #f4f4f4;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    margin-bottom: 2rem;
+  }
+  
+  /* Título principal */
+  .homepage-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  
+  /* Container com texto + imagem */
+  .homepage-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  
+  /* Texto da descrição */
+  .homepage-text {
+    flex: 1 1 300px;
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    color: #333;
+    font-size: 1rem;
+    line-height: 1.6;
+    
+  }
+  
+.margem{
+  margin-top: 100px;
+}
+
+  /* Destaque de texto dentro do parágrafo, opcional */
+  .homepage-description strong {
+    color: #9e8c51;
+    font-weight: bold;
+  }
+  
+  /* Imagem */
+  .homepage-image {
+    flex: 1 1 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .homepage-logo {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Responsivo para telas pequenas */
+  @media (max-width: 768px) {
+    .homepage-content {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+  
+    .homepage-text, .homepage-image {
+      flex: 1 1 100%;
+    }
+  
+    .homepage-title {
+      font-size: 1.6rem;
+    }
+  
+    .homepage-text {
+      padding: 1rem;
+    }
+  }
+  

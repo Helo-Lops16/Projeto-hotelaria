@@ -1,0 +1,64 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}Remover Quartos{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/rmvQuartos.css' %}">
+<script src="{% static 'js/quartos.js' %}" defer></script>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="top-bar">
+        <h1>Remover Quartos</h1>
+        <a href="{% url 'quartos' %}" class="btn-voltar">⮐ Voltar</a>
+    </div>
+
+    <div class="cards-container">
+        {% for quarto in quartos %}
+            <div class="card" onclick="toggleExpand(this)">
+                <img src="{{ quarto.img.url }}" alt="Imagem do Quarto">
+                <div class="card-info">
+                    <h2>Quarto {{ quarto.num_Quarto }} - {{ quarto.get_tipo_display }}</h2>
+                    <p><strong>Estilo:</strong> {{ quarto.get_estilo_display }}</p>
+                    <p><strong>Hóspedes:</strong> {{ quarto.qtd_Hospedes }}</p>
+                    <p><strong>Valor:</strong> R$ {{ quarto.valor }}</p>
+
+                    {% if quarto.reservas.exists %}
+                        <p><strong>Datas Reservadas:</strong></p>
+                        <ul>
+                            {% for reserva in quarto.reservas.all %}
+                                <li>{{ reserva.data }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p><strong>Datas Reservadas:</strong> Nenhuma</p>
+                    {% endif %}
+
+                    <p class="descricao"><strong>Descrição:</strong> {{ quarto.descricao }}</p>
+
+                    <form method="POST" onsubmit="return confirmarExclusaoComModal(this);">
+                        {% csrf_token %}
+                        <input type="hidden" name="id" value="{{ quarto.id }}">
+                        <button type="submit" class="btn-remove">Remover</button>
+                    </form>
+                </div>
+            </div>
+        {% empty %}
+            <p>Não há quartos cadastrados.</p>
+        {% endfor %}
+    </div>
+</div>
+
+<div id="confirmExclusaoModal" class="modal">
+    <div class="modal-content">
+        <h2>Confirmar Exclusão</h2>
+        <p>Tem certeza que deseja excluir este quarto? Esta ação não pode ser desfeita!</p>
+        <div class="modal-buttons">
+            <button id="confirmarExclusaoBtn">Confirmar</button>
+            <button id="cancelarExclusaoBtn">Cancelar</button>
+        </div>
+    </div>
+</div>
+{% endblock %}

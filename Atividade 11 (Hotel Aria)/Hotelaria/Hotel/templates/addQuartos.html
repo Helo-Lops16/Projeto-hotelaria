@@ -1,0 +1,45 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}Adicionar Quarto{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/addQuarto.css' %}">
+    <script src="{% static 'js/auto_form.js' %}" defer></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const statusSelect = document.getElementById("id_status");
+            const dataReservaInput = document.getElementById("id_data_reserva");
+            const dataReservaField = dataReservaInput.closest("p");
+
+            function toggleDataField() {
+                if (statusSelect.value === "False") {
+                    dataReservaField.style.display = "block";
+                } else {
+                    dataReservaField.style.display = "none";
+                    dataReservaInput.value = "";
+                }
+            }
+
+            toggleDataField();
+            statusSelect.addEventListener("change", toggleDataField);
+        });
+    </script>
+{% endblock %}
+
+{% block body %}
+
+<a href="{% url 'quartos' %}" class="btn-voltar">⮐ Voltar</a>
+
+<div class="container-add">
+    <div class="card-add">
+        <h1>Adicionar Novo Quarto</h1>
+        <form action="/addQuarto" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn-submit">Cadastrar</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

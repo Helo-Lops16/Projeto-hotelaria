@@ -1,0 +1,65 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}Reservas{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/reservas.css' %}">
+<script src="{% static 'js/quartos.js' %}" defer></script>
+<script>
+    const cancelarReservaURL = "{% url 'cancelar_reserva' %}";
+</script>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="top-bar">
+        <h1>Reservas Futuras</h1>
+        <div class="botoes">
+            <a href="{% url 'quartos' %}" class="btn-voltar">⮐ Voltar</a>
+        </div>
+    </div>
+
+    <form id="formExclusaoAutomatica" method="POST" action="{% url 'excluir_reservas_antigas' %}" onsubmit="return confirmarExclusaoAutomaticaComModal(this);">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-excluir-antigas">🗑️ Excluir Reservas Antigas</button>
+    </form>
+
+
+    <div class="cards-container">
+        {% for reserva in reservas %}
+            <div class="card" onclick="toggleExpand(this)">
+                <img src="{{ reserva.quarto.img.url }}" alt="Imagem do Quarto">
+                <div class="card-info">
+                    <h2>Quarto {{ reserva.quarto.num_Quarto }} - {{ reserva.quarto.get_tipo_display }}</h2>
+                    <p><strong>Estilo:</strong> {{ reserva.quarto.get_estilo_display }}</p>
+                    <p><strong>Hóspedes:</strong> {{ reserva.quarto.qtd_Hospedes }}</p>
+                    <p><strong>Valor:</strong> R$ {{ reserva.quarto.valor }}</p>
+                    <p><strong>Data da reserva:</strong> {{ reserva.data }}</p>
+                    <div class="descricao">
+                        <p><strong>Descrição:</strong> {{ reserva.quarto.descricao }}</p>
+                    </div>
+                    <form method="post" action="{% url 'cancelar_reserva' %}" onsubmit="return cancelarReservaComModal(this);">
+                        {% csrf_token %}
+                        <input type="hidden" name="reserva_id" value="{{ reserva.id }}">
+                        <button type="submit" class="btn-cancelar">Cancelar</button>
+                    </form>
+                </div>
+            </div>
+        {% empty %}
+            <p>Não há reservas no momento.</p>
+        {% endfor %}
+    </div>
+</div>
+
+<div id="confirmExclusaoModal" class="modal">
+    <div class="modal-content">
+        <h2>Confirmar Exclusão</h2>
+        <p>Tem certeza que deseja excluir essa reserva? Esta ação não pode ser desfeita!</p>
+        <div class="modal-buttons">
+            <button id="confirmarExclusaoBtn">Confirmar</button>
+            <button id="cancelarExclusaoBtn">Cancelar</button>
+        </div>
+    </div>
+</div>
+{% endblock %}

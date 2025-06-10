@@ -1,0 +1,118 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #e0e0e0; /* fundo cinza claro */
+    color: #333;
+}
+
+/* Botão voltar */
+.btn-voltar {
+    display: inline-block;
+    margin: 2rem;
+    text-decoration: none;
+    color: #d4b36b;
+    font-weight: bold;
+    font-size: 1rem;
+    border: 2px solid #d4b36b;
+    padding: 0.4rem 0.8rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-voltar:hover {
+    background-color: #d4b36b;
+    color: #fff;
+}
+
+/* Container principal */
+.container-add {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+/* Card do formulário */
+.card-add {
+    background-color: #fff;
+    padding: 2.5rem;
+    border-radius: 10px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 100%;
+}
+
+.card-add h1 {
+    font-size: 1.8rem;
+    color: #444;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+/* Formulário */
+.card-add form p {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-add form label {
+    font-weight: bold;
+    margin-bottom: 0.4rem;
+    color: #555;
+}
+
+.card-add form input,
+.card-add form select,
+.card-add form textarea {
+    padding: 0.6rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 0.95rem;
+    transition: border-color 0.3s ease;
+}
+
+.card-add form input:focus,
+.card-add form select:focus,
+.card-add form textarea:focus {
+    border-color: #d4b36b;
+    outline: none;
+}
+
+/* Botão de submit */
+.btn-submit {
+    display: block;
+    width: 100%;
+    padding: 0.8rem;
+    background-color: #d4b36b;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.btn-submit:hover {
+    background-color: #bfa05c;
+}
+
+/* Campo de data_reserva (controlado pelo JS) */
+.card-add form p[style*="display: none"] {
+    margin-bottom: 0;
+}
+
+/* Responsivo */
+@media (max-width: 500px) {
+    .card-add {
+        padding: 1.5rem;
+    }
+}
