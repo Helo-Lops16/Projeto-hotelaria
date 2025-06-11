@@ -1,4 +1,4 @@
-#Projeto hotelaria 
+# Projeto hotelaria 
 
 Nesse projeto, objetivo é criar um sistema de gestão de hotel, utilizando tecnologias como o framework Django, HTML, CSS. 
 
